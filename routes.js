@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack"; 
 import Contacts from "./screens/Contact";
 import Profile from './screens/Profile';
 import colors from "./utility/color";

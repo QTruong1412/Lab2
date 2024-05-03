@@ -1,40 +1,40 @@
-import React,{useState,useEffect} from "react";
-import { StyleSheet,View,Text } from "react-native";
+import {useState,useEffect} from "react";
+import { View } from "react-native";
 import { fetchRandomContacts } from "../utility/api";
-import ContactThumbnail from "../compoments/ContactThumbnail";
-import DetailListItem from "../compoments/DetailListItem";
-import colors from "../utility/color";
-const Profile=({route})=>
+import DetailListItem from "../components/DetailListItem"
+import { Avatar,Icon,Text } from "react-native-paper";
+const Profile=()=>
 {
-    const {contact}=route.params;
-    
-    const {avatar,name,email,phone,cell}=contact;
+    const [contact,setContact]=useState({})
+    useEffect(() => {
+        fetchRandomContacts().then(data => { setContact(data),console.log(data) })
+            .catch(e => console.log(e))
+    }, [])
+    const {name,avatar,phone,email,cell}=contact
     return (
-        <View style={styles.container}>
-            <View style={styles.avatarSection}>
-                <ContactThumbnail avatar={avatar} name={name} phone={phone}/>
+        <View style={{flex:1}}>
+            <View style={{
+                flex:1,
+                justifyContent:'center',
+                alignItems:'center',
+                backgroundColor:'aqua'
+            }}>
+                <Avatar.Image source={{uri:avatar}} size={100}/>
+                <Text variant="headlineLarge" style={{color:'white'}}>
+{contact.name}
+                </Text>
+                <Text>
+                    <Icon source={"phone"}/>
+                    {contact.phone}
+                </Text>
             </View>
-            <View style={styles.detailSection}>
-                <DetailListItem icon='mail' title='Email' subtitle={email}/>
-                <DetailListItem icon='phone' title='Work' subtitle={phone}/>
-                <DetailListItem icon='smartphone' title='Personal' subtitle={cell}/>
+            <View style={{flex:1}}>
+                <DetailListItem icon='email' label="Email" value={contact.email}/>
+                <DetailListItem icon='phone' label="Work" value={contact.phone}/>
+                <DetailListItem icon='cellphone' label="Persona" value={contact.cell}/>
+
             </View>
         </View>
     )
 }
 export default Profile;
-const styles=StyleSheet.create({
-    container:{
-        flex:1
-    },
-    avatarSection:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:colors.blue
-    },
-    detailSection:{
-        flex:1,
-        backgroundColor:'white'
-    }
-})

@@ -1,19 +1,19 @@
 import React from 'react';
-import {StyleSheet,View,TouchableHighlight,Image,Text} from 'react-native';
-import Icon from 'react-native-vector-icon/MaterialIcons';
+import {StyleSheet,View,Pressable,Image,Text} from 'react-native';
+import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 const ContactThumbnail=({name,phone,avatar,textColor,onPress,})=>
 {
     const colorStyle={
         color:textColor,
     };
-    const ImageCompoment=onPress?TouchableHighlight:View;
+    const ImageComponent=onPress?Pressable:View;
     return(
         <View style={styles.container}>
-            <ImageCompoment onPress={onPress}>
+            <ImageComponent onPress={onPress}>
                 <Image source={{uri:avatar}} style={styles.avatar}/>
 
-            </ImageCompoment>
+            </ImageComponent>
             {name!=''&&<Text style={[styles.name]}>{name}</Text>}
             {phone!='' && (
                 <View style={styles.phoneSection}>
@@ -31,7 +31,7 @@ ContactThumbnail.propTypes={
     phone:PropTypes.string,
     onPress:PropTypes.func,
 };
-ContactThumbnail.defaultProp={
+ContactThumbnail.defaultProps={
     name:'',
     phone:'',
     textColor:'white',
